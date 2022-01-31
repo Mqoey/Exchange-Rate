@@ -1,58 +1,32 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import axios from 'axios';
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             currencies: [
-                {
-                    "id": 1,
-                    "name": "ZWL",
-                    "value": 113,
-                    "created_at": "2022-01-31T13:02:08.000Z",
-                    "updated_at": "2022-01-31T13:02:08.000Z"
-                },
-                {
-                    "id": 2,
-                    "name": "EUR",
-                    "value": 126,
-                    "created_at": "2022-01-30T13:02:08.000Z",
-                    "updated_at": "2022-01-30T13:02:08.000Z"
-                },
-                {
-                    "id": 3,
-                    "name": "BWP",
-                    "value": 10,
-                    "created_at": "2022-01-30T13:02:08.000Z",
-                    "updated_at": "2022-01-30T13:02:08.000Z"
-                },
-                {
-                    "id": 4,
-                    "name": "GBP",
-                    "value": 151,
-                    "created_at": "2022-01-18T13:02:08.000Z",
-                    "updated_at": "2022-01-18T13:02:08.000Z"
-                }
+
             ],
             selectedOption: {
-                "id": 1,
-                "name": "ZWL",
-                "value": 113,
-                "created_at": "2022-01-31T13:02:08.000Z",
-                "updated_at": "2022-01-31T13:02:08.000Z"
+
             },
 
             selectedOption2: {
-                "id": 2,
-                "name": "EUR",
-                "value": 126,
-                "created_at": "2022-01-30T13:02:08.000Z",
-                "updated_at": "2022-01-30T13:02:08.000Z"
+
             },
         };
     }
+    componentDidMount() {
+        axios.get(`localhost:5000/api/v1/currency`)
+            .then(res => {
+                this.setState({ currencies: res });
+                this.setState({ selectedOption: res[0] });
+                this.setState({ selectedOption: res[1] });
+            })
+    }
+
     renderOption() {
         return this.state.currencies.map((currency, key) => <option value="{currency.name}">{currency.name}</option>);;
     }
