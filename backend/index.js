@@ -5,7 +5,7 @@ const cors = require('cors');
 // create express app
 const app = express();
 
-// 
+// add cors
 app.use(cors());
 
 // setup the server port
